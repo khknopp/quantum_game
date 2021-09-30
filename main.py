@@ -8,6 +8,8 @@ import string
 from datetime import datetime
 from flask import Flask, flash, render_template, redirect, request, url_for, jsonify, session, Response
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.engine.reflection import Inspector
+import levels
 
 # -----------^IMPORTS^---------------
 
@@ -15,7 +17,6 @@ app = Flask(__name__)
 app.secret_key = 'ljrgregjorrejrekirew9843j'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
-SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 # -------------^CONFIGS^-------------
@@ -38,12 +39,10 @@ db.create_all()
 
 # -----------------^DATABASE^-----------------------
 
-def createLevel(Qubits, Monsters, Gates, Description, Success, Failure):
-    entry = Level(Qubits=Qubits, Monsters=Monsters, Gates=Gates, Description=Description, Success=Success, Failure=Failure)
-    db.session.add(entry)
-    db.session.commit()
-    print(entry)
-    return 1
+# Defining the levels:
+if(Level.query.all() == []):
+    levels.createAllLevels(db, Level)
+
 
 # ------------------^FUNCTIONS^------------------------------
 
