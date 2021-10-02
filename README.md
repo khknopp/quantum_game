@@ -1,4 +1,4 @@
-# Quantum Space Invaders
+# Quantum Shooter
 This is a Quantum web game inspired by the classic 1978 classic Space Invaders created. Developed by @khknopp
 The datasets we used can be found in ```datasets.md```.
 
