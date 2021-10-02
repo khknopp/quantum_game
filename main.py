@@ -8,7 +8,7 @@ import string
 from datetime import datetime
 from flask import Flask, flash, render_template, redirect, request, url_for, jsonify, session, Response
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.engine.reflection import Inspector
+from sqlalchemy import func
 import levels
 
 # -----------^IMPORTS^---------------
@@ -45,6 +45,10 @@ if(Level.query.all() == []):
 
 
 # ------------------^FUNCTIONS^------------------------------
+
+@app.before_first_request
+def initialize():
+    session['level'] = 0
 
 @app.route('/logout')
 def logout():
@@ -87,26 +91,40 @@ def description_next():
 ###### Level ######
 @app.route('/level')
 def level():
-    return render_template('level.html')
+    return render_template('level.html', level=session['level'])
+
+@app.route('/level_next')
+def level_next():
+    return redirect(url_for('success'))
 
 ###### Level success ######
 @app.route('/success')
 def success():
+    success = Level.query.filter_by(Id=session['level']).first().Success
     session['level'] += 1
-    return render_template('success.html')
+    return render_template('success.html', success=success, level=session['level']-1)
 
 @app.route('/success_next')
 def success_next():
+    if(session['level'] > db.session.query(func.max(Level.Id)).scalar()):
+        return redirect(url_for('endgame'))
     return redirect(url_for('description'))
 
 ###### Level failure ######
 @app.route('/failure')
 def failure():
-    return render_template('failure.html')
+    failure = Level.query.filter_by(Id=session['level']).first().Failure
+    return render_template('failure.html', failure=failure, level=session['level'])
 
 @app.route('/failure_next')
 def failure_next():
     return redirect(url_for('description'))
+
+###### End of game ######
+@app.route('/endgame')
+def endgame():
+    session['level'] = 0
+    return render_template('endgame.html')
 
 
 # -------^ROUTES^-------

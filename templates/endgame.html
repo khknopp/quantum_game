@@ -1,0 +1,29 @@
+{% extends "basic.html" %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/text.css') }}"/>
+{% endblock %}
+{% block content %}
+
+
+<section class="pixel-border">
+  <h1>THE END</h1>
+  <p style="text-align: center;">
+    <b style="color: cornflowerblue">You won!</b>
+  </p>
+  <p>
+    Thanks for playing! Here are some resources if you want to learn more about <b style="color: cornflowerblue">Quantum Computing</b>:
+  </p>
+  <p>
+    <ul>
+      <li><a href="https://qiskit.org/" target="_blank">Qiskit</a></li>
+      <li><a href="https://www.ibm.com/quantum-computing/what-is-quantum-computing/" target="_blank">IBM Quantum</a></li>
+      <li><a href="https://gitlab.com/qworld/bronze-qiskit" target="_blank">QWorld Bronze</a></li>
+      <li><a href="https://www.qaif.org/" target="_blank">Quantum AI Foundation</a></li>
+      <li><a href="https://www.qosf.org/" target="_blank">Quantum Open-Source Foundation</a></li>
+    </ul>
+  </p>
+
+</section>
+
+{% endblock %}
+

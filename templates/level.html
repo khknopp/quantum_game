@@ -1,0 +1,23 @@
+{% extends "basic.html" %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/text.css') }}"/>
+{% endblock %}
+{% block content %}
+
+
+<section class="pixel-border">
+  <h1>Level {{ level }}</h1>
+  <p>
+      Game time!!
+  </p>
+
+  <form action="level_next">
+    <input type="Submit" class="submit_button" value="Next!">
+  </form>
+
+</section>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+{% endblock %}
+

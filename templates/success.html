@@ -1,0 +1,22 @@
+{% extends "basic.html" %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/text.css') }}"/>
+{% endblock %}
+{% block content %}
+
+
+<section class="pixel-border">
+  <h1>Good job!</h1>
+  <p>
+    You completed <b style="color: cornflowerblue">Level {{ level }}</b>! 
+    {{ success }}
+  </p>
+
+  <form action="success_next">
+    <input type="Submit" class="submit_button" value="Next level!">
+  </form>
+
+</section>
+
+{% endblock %}
+
