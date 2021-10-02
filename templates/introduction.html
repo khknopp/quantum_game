@@ -1,0 +1,28 @@
+{% extends "basic.html" %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/text.css') }}"/>
+{% endblock %}
+{% block content %}
+
+
+<section class="pixel-border">
+  <h1>Welcome!</h1>
+  <p>
+    This game was created as part of Quantum AI Foudation's Quantum Games Hackathon 2021.
+  </p>
+  <p>
+    It encloses quantum technology
+    in a shooter (inspired by the classic 1978 Space Invaders).
+    I hope you find it enjoyable and learn something new!
+  </p>
+
+  <form action="introduction_next">
+    <input type="Submit" class="submit_button" value="I'm ready!">
+  </form>
+
+</section>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+{% endblock %}
+

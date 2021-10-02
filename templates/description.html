@@ -1,0 +1,28 @@
+{% extends "basic.html" %}
+{% block includes %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/text.css') }}"/>
+{% endblock %}
+{% block content %}
+
+
+<section class="pixel-border">
+  <h1>Level {{ level }}</h1>
+  <p>
+    {{ description }}
+  </p>
+  <p>
+    <b style="color: cornflowerblue">QUICK TIP:</b>
+    Shoot with <b style="color: cornflowerblue">SPACE</b>, move left with 
+    <b style="color: cornflowerblue">A</b> and right with <b style="color: cornflowerblue">D</b>!
+  </p>
+
+  <form action="description_next">
+    <input type="Submit" class="submit_button" value="Let's start!">
+  </form>
+
+</section>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+{% endblock %}
+
