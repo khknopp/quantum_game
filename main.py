@@ -46,15 +46,67 @@ if(Level.query.all() == []):
 
 # ------------------^FUNCTIONS^------------------------------
 
+@app.route('/logout')
+def logout():
+    session['level'] = 0
+    return redirect(url_for('introduction'))
+
 @app.route('/')
 def main():
-    return redirect(url_for('index'))
+    if(session['level'] == 0):
+        return redirect(url_for('introduction'))
+    else:
+        return redirect(url_for('description'))
+
+###### Introduction ######
+@app.route('/introduction')
+def introduction():
+    return render_template('introduction.html')
+
+@app.route('/introduction_next')
+def introduction_text():
+    session['level'] = 1
+    return redirect(url_for('description'))
 
 
-@app.route('/index')
-def index():
-    return render_template('index.html')
+###### Description ######
+@app.route('/description')
+def description():
+    if(session['level'] == 0 or session['level'] == None):
+        return redirect(url_for('introduction'))
+    description = Level.query.filter_by(Id=session['level']).first().Description
+    return render_template('description.html', level=session['level'], description=description)
 
+@app.route('/description_next')
+def description_next():
+    if(session['level'] == 0 or session['level'] == None):
+        return redirect(url_for('introduction'))
+    return redirect(url_for('level'))
+
+
+###### Level ######
+@app.route('/level')
+def level():
+    return render_template('level.html')
+
+###### Level success ######
+@app.route('/success')
+def success():
+    session['level'] += 1
+    return render_template('success.html')
+
+@app.route('/success_next')
+def success_next():
+    return redirect(url_for('description'))
+
+###### Level failure ######
+@app.route('/failure')
+def failure():
+    return render_template('failure.html')
+
+@app.route('/failure_next')
+def failure_next():
+    return redirect(url_for('description'))
 
 
 # -------^ROUTES^-------
